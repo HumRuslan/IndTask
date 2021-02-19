@@ -9,7 +9,6 @@
         public function render ($view, array $params = [])
         {
             $className = str_replace('Controller', '', substr(get_class($this), strrpos(get_class($this), "\\")+1));
-            // $path = substr(get_class($this), 0, strpos(get_class($this), "\\"));
             if ($this->layot){
                 require_once './views/_shared/header.php';
             }
