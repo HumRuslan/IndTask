@@ -8,6 +8,7 @@ class taskController extends baseController
 {
     public function __construct()
     {
+        if (!isset($_SESSION)) session_start();
         if (!isset($_SESSION['auth'])) {
             $this->redirect('/');
         }
