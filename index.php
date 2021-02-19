@@ -2,8 +2,6 @@
     require_once('core/autoload.php');
 
     $requestUri=preg_split('/\/|\?/',$_SERVER["REQUEST_URI"]);
-    // var_dump($requestUri);
-    // die();
     $controllerName = !isset($requestUri[1]) ? 'user' : $requestUri[1] === '' ? 'user' : $requestUri[1];
     $actionName = !isset($requestUri[2]) ? 'index' : $requestUri[2] === '' ? 'index' : $requestUri[2];
     $controllerPath ='controllers/' . $controllerName . 'Controller.php';

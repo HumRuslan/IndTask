@@ -1,5 +1,4 @@
 <?php
-
 namespace core;
 use core\connectDB;
 use \PDO;
@@ -8,7 +7,7 @@ abstract class baseModel
 {
     static $table = 'table';
 
-    protected $sql_str = '';
+    static $sql_str = '';
 
     abstract public function rules();
 
@@ -150,7 +149,7 @@ abstract class baseModel
         $obj_name = get_called_class();
         $obj = new $obj_name;
         $table = static::$table;
-        $obj->sql_str = "SELECT * FROM `$table`";
+        static::$sql_str = "SELECT * FROM `$table`";
         return $obj;
     }
 
@@ -162,7 +161,7 @@ abstract class baseModel
                 $value = htmlspecialchars($value);
                 $sql[] = "`$key` = '$value'";
             }
-            $this->sql_str .= " WHERE " . implode(' AND ', $sql);
+            static::$sql_str .= " WHERE " . implode(' AND ', $sql);
         }
         return $this;
     }
@@ -174,7 +173,7 @@ abstract class baseModel
             foreach ($params as $key => $value){
                 $sql[] = "$key $value";
             }
-            $this->sql_str .= " ORDER BY " . implode(', ', $sql);
+            static::$sql_str .= " ORDER BY " . implode(', ', $sql);
         }
         return $this;
     }
@@ -183,7 +182,7 @@ abstract class baseModel
     {
         extract($params);
         if (isset($start) && isset($step)){
-            $this->sql_str .= " LIMIT $step OFFSET $start";
+            static::$sql_str .= " LIMIT $step OFFSET $start";
         }
         return $this;
     }
@@ -191,7 +190,7 @@ abstract class baseModel
     public function all()
     {
         $conn = connectDB::connectDB();
-        $stmt = $conn->prepare($this->sql_str);
+        $stmt = $conn->prepare(static::$sql_str);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $result;
@@ -200,7 +199,7 @@ abstract class baseModel
     public function one()
     {
         $conn = connectDB::connectDB();
-        $stmt = $conn->prepare($this->sql_str);
+        $stmt = $conn->prepare(static::$sql_str);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_OBJ);
         return $result;
@@ -212,9 +211,7 @@ abstract class baseModel
         $data = get_object_vars($this);
         $values = [];
         foreach ($data as $key => $value){
-            if ($value){
-                $values[] = "`$key`=:$key";
-            }
+            $values[] = "`$key`=:$key";
         }
         $sql_set = implode(', ', $values);
         $sql_where = [];
@@ -224,11 +221,8 @@ abstract class baseModel
         $sql_where = implode(' AND ', $sql_where);
         $sql = "UPDATE `$table` SET $sql_set WHERE $sql_where";
         $stmt = $conn->prepare($sql);
-
         foreach ($data as $key => $value){
-            if ($value){
-                $stmt->bindParam(":$key", $data[$key]);
-            }
+            $stmt->bindParam(":$key", $data[$key]);
         }
         return $stmt->execute();
     }

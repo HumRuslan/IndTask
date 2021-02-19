@@ -1,6 +1,5 @@
 <?php
     namespace core;
-
     use config\config;
 
     class baseController extends config

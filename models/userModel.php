@@ -1,6 +1,5 @@
 <?php
     namespace models;
-
     use core\baseModel;
     use \PDO;
 

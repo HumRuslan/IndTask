@@ -1,6 +1,5 @@
 <?php
 namespace controllers;
-
 use core\baseController;
 use models\listModel;
 
@@ -9,6 +8,9 @@ class listController extends baseController
     public function __construct()
     {
         if (!isset($_SESSION)) session_start();
+        if (!isset($_SESSION['auth'])) {
+            $this->redirect('/');
+        }
         $this->layot = true;
     }
 

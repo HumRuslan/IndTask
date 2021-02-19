@@ -1,6 +1,5 @@
 <?php
 namespace controllers;
-
 use core\baseController;
 use models\userModel;
 
