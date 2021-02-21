@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
     `user_id` INT UNSIGNED NOT NULL,
     `list_id` INT UNSIGNED NOT NULL,
     `completed` BOOLEAN DEFAULT 0,
-    `position` INT DEFAULT 0,
+    `position` INT DEFAULT 1,
     `created_at` datetime DEFAULT NOW(),
     `completed_at` datetime,
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
