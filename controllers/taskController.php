@@ -61,10 +61,10 @@ class taskController extends baseController
         $list_id = $task->list_id;
         if ($model->loadPost() && $model->validate()){
             if (isset($_POST['completed'])) {
-                $model->completed = true;
+                $model->completed = 1;
                 $model->completed_at = date('Y-m-d h:i:s');
             } else {
-                $model->completed_at = null;
+                $model->completed_at = 0;
                 $model->completed = false;
             }
             if ($model->update(['id' => $task->id])){
@@ -98,11 +98,11 @@ class taskController extends baseController
                 $model->{$key} = $value;
             }
             if ($_POST['completed'] == "true") {
-                $model->completed = true;
+                $model->completed = 1;
                 $model->completed_at = date('Y-m-d h:i:s');
             } else {
                 $model->completed_at = null;
-                $model->completed = false;
+                $model->completed = 0;
             }
             if ($model->update(['id' => $task->id])){
                 echo json_encode(['status' => 'success', 'data' => $model, 'post' => $_POST['completed']]);
