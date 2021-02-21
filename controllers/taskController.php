@@ -74,7 +74,7 @@ class taskController extends baseController
             }
             $this->redirect("/task/index?list_id=$list_id");
         }
-        $this->render('create', ['model' => $model]);
+        $this->render('edit', ['model' => $model]);
     }
 
     public function deleteAction()

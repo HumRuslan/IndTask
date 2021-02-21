@@ -1,5 +1,5 @@
 <div class="m-5 w-50 mx-auto">
-    <h3 class="text-center">ADD TODO TASK</h3>
+    <h3 class="text-center">EDIT TODO TASK</h3>
 
     <form method="POST">
         <input type="text" class="form-control" name="list_id" value="<?=$model->list_id?>" hidden>

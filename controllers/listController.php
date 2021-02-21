@@ -53,7 +53,7 @@ class listController extends baseController
             $model->update(['id' => $list->id]);
             $this->redirect('/list/index');
         }
-        $this->render('create', ['model' => $model]);
+        $this->render('edit', ['model' => $model]);
     }
 
     public function deleteAction()
