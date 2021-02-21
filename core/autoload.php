@@ -1,7 +1,8 @@
 <?php
     function autoloadClass($name)
     {
-        require_once($name . '.php');
+        $path = str_replace('\\', '/', $name);
+        require_once($path . '.php');
         if (!class_exists($name)){
             throw new Exception ("Controller class $name not found in file: $name.php");
         }
