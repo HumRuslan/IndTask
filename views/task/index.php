@@ -8,7 +8,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col" class="">TASK</th>
-                    <th scope="col" class="">POSITION</th>
+                    <th scope="col" class="" colspan="2">POSITION</th>
                     <th scope="col" class="">DATE STARTED</th>
                     <th scope="col" class="">COMPLETED</th>
                     <th scope="col" class="">DATE COMPLETED</th>
@@ -28,6 +28,14 @@
                     </td>
                     <td class="text-center">
                         <?=$task->position?>
+                    </td>
+                    <td>
+                        <a href="/task/positionDown?id=<?=$task->id?>" style="text-decoration: none;">
+                            <i class="far fa-arrow-alt-circle-down"></i>
+                        </a>
+                        <a href="/task/positionUp?id=<?=$task->id?>" style="text-decoration: none">
+                            <i class="far fa-arrow-alt-circle-up"></i>
+                        </a>
                     </td>
                     <td>
                         <?=$task->created_at?>

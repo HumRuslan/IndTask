@@ -111,4 +111,36 @@ class taskController extends baseController
             }
         }
     }
+
+    public function positionUpAction()
+    {
+        $model = new taskModel;
+        $task = taskModel::find()
+                        ->where(['id' => $_GET['id']])
+                        ->one();
+        foreach ($task as $key => $value){
+            $model->{$key} = $value;
+        }
+        $model->position++;
+        $list_id = $task->list_id;
+        $model->update(['id' => $task->id]);
+        $this->redirect("/task/index?list_id=$list_id");
+    }
+
+    public function positionDownAction()
+    {
+        $model = new taskModel;
+        $task = taskModel::find()
+                        ->where(['id' => $_GET['id']])
+                        ->one();
+        $list_id = $task->list_id;
+        if ($task->position > 1) {
+            foreach ($task as $key => $value){
+                $model->{$key} = $value;
+            }
+            $model->position--;
+            $model->update(['id' => $task->id]);
+        }
+        $this->redirect("/task/index?list_id=$list_id");
+    }
 }
