@@ -15,7 +15,7 @@ class connectDB extends config
                 self::$connectDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e){
                 $error = 'Connected failed: ' . $e->getMessage;
-                extract (['error' => $ex->getMessage()]);
+                extract (['error' => $e->getMessage()]);
                 require_once ('views/__shared/error.php');
             }
         }
