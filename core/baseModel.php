@@ -227,7 +227,7 @@ abstract class baseModel
         return $stmt->execute();
     }
 
-    public function delete($params = []){
+    static public function delete($params = []){
         $conn = connectDB::connectDB();
         $table = static::$table;
         $sql_where = [];
