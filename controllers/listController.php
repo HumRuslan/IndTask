@@ -1,9 +1,9 @@
 <?php
 namespace controllers;
-use core\baseController;
-use models\listModel;
+use core\BaseController;
+use models\ListModel;
 
-class listController extends baseController
+class ListController extends BaseController
 {
     public function __construct()
     {
@@ -16,7 +16,7 @@ class listController extends baseController
 
     public function indexAction()
     {
-        $lists = listModel::find()
+        $lists = ListModel::find()
                     ->where(['user_id' => $_SESSION['auth']])
                     ->orderBy(['name' => 'ASC'])
                     ->all();
@@ -25,7 +25,7 @@ class listController extends baseController
 
     public function createAction()
     {
-        $model = new listModel;
+        $model = new ListModel;
         if ($model->loadPost()) {
             $model->user_id = $_SESSION['auth'];
             if ($model->validate()) {
@@ -42,8 +42,8 @@ class listController extends baseController
 
     public function editAction()
     {
-        $model = new listModel;
-        $list = listModel::find()
+        $model = new ListModel;
+        $list = ListModel::find()
                         ->where(['id' => $_GET['id']])
                         ->one();
         foreach ($list as $key => $value){
@@ -58,7 +58,7 @@ class listController extends baseController
 
     public function deleteAction()
     {
-        listModel::delete(['id' => $_GET['id']]);
+        ListModel::delete(['id' => $_GET['id']]);
         $this->redirect('/list/index');
     }
 }

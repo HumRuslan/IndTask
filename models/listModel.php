@@ -1,9 +1,9 @@
 <?php
     namespace models;
-    use core\baseModel;
+    use core\BaseModel;
     use \PDO;
 
-    class listModel extends baseModel
+    class ListModel extends BaseModel
     {
         public $id;
         public $name;

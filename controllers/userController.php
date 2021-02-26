@@ -1,9 +1,9 @@
 <?php
 namespace controllers;
-use core\baseController;
-use models\userModel;
+use core\BaseController;
+use models\UserModel;
 
-class userController extends baseController
+class UserController extends BaseController
 {
     public function __construct()
     {
@@ -21,7 +21,7 @@ class userController extends baseController
 
     public function loginAction()
     {
-        $user = userModel::find()
+        $user = UserModel::find()
                     ->where(['email' => $_POST['email'],
                            'password' => $this->passwordHasher($_POST['password'])
                     ])
@@ -38,13 +38,13 @@ class userController extends baseController
     public function registerAction()
     {
         
-        $user = userModel::find()
+        $user = UserModel::find()
                     ->where(['email' => $_POST['email']])
                     ->one();
         if ($user) {
             $_SESSION['error'] = 'User with this email is already registered';
         } else {
-        $user = new userModel;
+        $user = new UserModel;
         if ($user->loadPost() && $user->validate()){
             
             $user->password = $this->passwordHasher($user->password);

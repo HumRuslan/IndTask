@@ -1,5 +1,5 @@
 <?php
-    require_once('core/autoload.php');
+    require_once('vendor/autoload.php');
 
     $requestUri=preg_split('/\/|\?/',$_SERVER["REQUEST_URI"]);
     $controllerName = !isset($requestUri[1]) ? 'user' : $requestUri[1] === '' ? 'user' : $requestUri[1];
@@ -9,7 +9,7 @@
     try
     {
         if (file_exists($controllerPath)){
-            $controllerClassName = '\\controllers\\' . $controllerName . 'Controller';
+            $controllerClassName = '\\controllers\\' . ucfirst($controllerName) . 'Controller';
             $controller = new $controllerClassName;
             $actionClassMethodName = $actionName . 'Action';
             if (method_exists($controller, $actionClassMethodName)){

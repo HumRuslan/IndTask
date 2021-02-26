@@ -1,9 +1,9 @@
 <?php
     namespace models;
-    use core\baseModel;
+    use core\BaseModel;
     use \PDO;
 
-    class taskModel extends baseModel
+    class TaskModel extends BaseModel
     {
         public $id;
         public $name;

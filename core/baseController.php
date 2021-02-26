@@ -1,14 +1,13 @@
 <?php
     namespace core;
-    use config\config;
 
-    class baseController extends config
+    class BaseController
     {
         protected $layot;
 
         public function render ($view, array $params = [])
         {
-            $className = str_replace('Controller', '', substr(get_class($this), strrpos(get_class($this), "\\")+1));
+            $className = lcfirst(str_replace('Controller', '', substr(get_class($this), strrpos(get_class($this), "\\")+1)));
             if ($this->layot){
                 require_once './views/_shared/header.php';
             }
@@ -31,6 +30,6 @@
         }
 
         protected function passwordHasher($password){
-            return sha1(self::SALT . $password . self::SALT);
+            return sha1(SALT . $password . SALT);
         }
     }

@@ -1,10 +1,10 @@
 <?php
 namespace controllers;
-use core\baseController;
-use models\taskModel;
-use models\listModel;
+use core\BaseController;
+use models\TaskModel;
+use models\ListModel;
 
-class taskController extends baseController
+class TaskController extends BaseController
 {
     public function __construct()
     {
@@ -17,12 +17,12 @@ class taskController extends baseController
 
     public function indexAction()
     {
-        $tasks = taskModel::find()
+        $tasks = TaskModel::find()
                 ->where(['list_id' => $_GET['list_id']])
                 ->orderBy(['position' => 'DESC',
                            'name' => 'ASC'])
                 ->all();
-        $list = listModel::find()
+        $list = ListModel::find()
                 ->where(['id' => $_GET['list_id']])
                 ->one();
         $this->render('index', ['tasks' => $tasks, 'list' => $list]);
@@ -31,7 +31,7 @@ class taskController extends baseController
 
     public function createAction()
     {
-        $model = new taskModel;
+        $model = new TaskModel;
         if ($model->loadPost()) {
             
             $model->user_id = $_SESSION['auth'];
@@ -51,8 +51,8 @@ class taskController extends baseController
 
     public function editAction()
     {
-        $model = new taskModel;
-        $task = taskModel::find()
+        $model = new TaskModel;
+        $task = TaskModel::find()
                         ->where(['id' => $_GET['id']])
                         ->one();
         foreach ($task as $key => $value){
@@ -79,19 +79,19 @@ class taskController extends baseController
 
     public function deleteAction()
     {
-        $task = taskModel::find()
+        $task = TaskModel::find()
                         ->where(['id' => $_GET['id']])
                         ->one();
         $list_id = $task->list_id;                
-        taskModel::delete(['id' => $_GET['id']]);
+        TaskModel::delete(['id' => $_GET['id']]);
         $this->redirect("/task/index?list_id=$list_id");
     }
 
     public function completedAction()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $model = new taskModel;
-            $task = taskModel::find()
+            $model = new TaskModel;
+            $task = TaskModel::find()
                             ->where(['id' => $_POST['id']])
                             ->one();
             foreach ($task as $key => $value){
@@ -114,8 +114,8 @@ class taskController extends baseController
 
     public function positionUpAction()
     {
-        $model = new taskModel;
-        $task = taskModel::find()
+        $model = new TaskModel;
+        $task = TaskModel::find()
                         ->where(['id' => $_GET['id']])
                         ->one();
         foreach ($task as $key => $value){
@@ -129,8 +129,8 @@ class taskController extends baseController
 
     public function positionDownAction()
     {
-        $model = new taskModel;
-        $task = taskModel::find()
+        $model = new TaskModel;
+        $task = TaskModel::find()
                         ->where(['id' => $_GET['id']])
                         ->one();
         $list_id = $task->list_id;

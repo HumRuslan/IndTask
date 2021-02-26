@@ -1,9 +1,9 @@
 <?php
 namespace core;
-use core\connectDB;
+use core\ConnectDB;
 use \PDO;
 
-abstract class baseModel
+abstract class BaseModel
 {
     static $table = 'table';
 
@@ -117,7 +117,7 @@ abstract class baseModel
                 $values[] = ":$key";
             }
         }
-        $conn = connectDB::connectDB();
+        $conn = ConnectDB::connectDB();
         $table = static::$table;
         $sql_keys = implode(', ', $keys);
         $sql_values = implode(', ', $values);
@@ -136,7 +136,7 @@ abstract class baseModel
 
     public function count()
     {
-        $conn = connectDB::connectDB();
+        $conn = ConnectDB::connectDB();
         $table = static::$table;
         $stmt = $conn->prepare("SELECT COUNT(*) as `count` FROM $table");
         $stmt->execute();
@@ -189,7 +189,7 @@ abstract class baseModel
 
     public function all()
     {
-        $conn = connectDB::connectDB();
+        $conn = ConnectDB::connectDB();
         $stmt = $conn->prepare(static::$sql_str);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -198,7 +198,7 @@ abstract class baseModel
 
     public function one()
     {
-        $conn = connectDB::connectDB();
+        $conn = ConnectDB::connectDB();
         $stmt = $conn->prepare(static::$sql_str);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_OBJ);
@@ -206,7 +206,7 @@ abstract class baseModel
     }
 
     public function update($params = []){
-        $conn = connectDB::connectDB();
+        $conn = ConnectDB::connectDB();
         $table = static::$table;
         $data = get_object_vars($this);
         $values = [];
@@ -227,8 +227,8 @@ abstract class baseModel
         return $stmt->execute();
     }
 
-    public function delete($params = []){
-        $conn = connectDB::connectDB();
+    static public function delete($params = []){
+        $conn = ConnectDB::connectDB();
         $table = static::$table;
         $sql_where = [];
         foreach ($params as $key => $values){

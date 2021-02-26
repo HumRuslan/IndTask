@@ -1,9 +1,8 @@
 <?php
 namespace core;
-use config\config;
 use \PDO;
 
-class connectDB extends config
+class ConnectDB
 {
     private static $connectDB = null;
 
@@ -11,11 +10,11 @@ class connectDB extends config
     {
         if (!self::$connectDB){
             try {
-                self::$connectDB = new PDO("mysql:host=" . self::ServerName . ";dbname=" . self::DBName, self::UserName, self::Password);
+                self::$connectDB = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
                 self::$connectDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e){
                 $error = 'Connected failed: ' . $e->getMessage;
-                extract (['error' => $ex->getMessage()]);
+                extract (['error' => $e->getMessage()]);
                 require_once ('views/__shared/error.php');
             }
         }

@@ -2,10 +2,11 @@
 require_once('../config/config.php');
 
 try {
-    $pdo = new PDO("mysql:host=" . \config\config::ServerName . ";dbname=" . \config\config::DBName, \config\config::UserName, \config\config::Password);
+    $pdo = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e){
-    echo 'Connected failed: ' . $e->getMessage;
+    echo 'Connected failed: ' . $e->getMessage();
+    die();
 }
 
 $sql = <<<'SQL'
