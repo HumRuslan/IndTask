@@ -2,7 +2,7 @@
 require_once('../config/config.php');
 
 try {
-    $pdo = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
+    $pdo = new PDO("mysql:host=" . SERVER_NAME . ";dbname=" . DB_NAME, USER_NAME, PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e){
     echo 'Connected failed: ' . $e->getMessage();

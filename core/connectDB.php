@@ -10,12 +10,12 @@ class ConnectDB
     {
         if (!self::$connectDB){
             try {
-                self::$connectDB = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
+                self::$connectDB = new PDO("mysql:host=" . SERVER_NAME . ";dbname=" . DB_NAME, USER_NAME, PASSWORD);
                 self::$connectDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e){
                 $error = 'Connected failed: ' . $e->getMessage;
                 extract (['error' => $e->getMessage()]);
-                require_once ('views/__shared/error.php');
+                require_once ('views/_shared/error.php');
             }
         }
         return self::$connectDB;
